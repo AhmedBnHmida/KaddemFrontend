@@ -1,0 +1,59 @@
+<h1 mat-dialog-title>{{ajoutmodif}}un projet</h1>
+<div mat-dialog-content>
+  
+  <p [ngClass]="ajtprclass"> {{ajoutmodif}} les cordonnées de ce projet </p>
+<form [formGroup]="projectForm">
+
+
+  <mat-form-field appearance="fill">
+    <mat-label>Montant du Contrat</mat-label>
+    <input formControlName="montantContrat" matInput>
+  </mat-form-field>
+  <span class="text-danger" *ngIf="projectForm.controls['montantContrat'].dirty && projectForm.hasError('montantContrat') "> </span>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Specialite</mat-label>
+    <mat-select formControlName="specialite">
+      <mat-option value="IA">IA</mat-option>
+      <mat-option value="SECURITE">SECURITE</mat-option>
+      <mat-option value="RESEAU">RESEAU</mat-option>
+      <mat-option value="CLOUD">CLOUD</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Date Debut Contrat</mat-label>
+    <input formControlName="dateDebutContrat" matInput [matDatepicker]="picker">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Date Fin Contrat</mat-label>
+    <input formControlName="dateFinContrat" matInput [matDatepicker]="pickerr">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="pickerr"></mat-datepicker-toggle>
+    <mat-datepicker #pickerr></mat-datepicker>
+  </mat-form-field>
+
+  <br>
+  
+  <mat-radio-group formControlName="archived" aria-label="Select an option" >
+    <mat-radio-button value=true>Archivé</mat-radio-button>
+    <mat-radio-button value=false>Non Archivé</mat-radio-button>
+  </mat-radio-group>
+  
+</form>
+<p [ngStyle]="{'color' : style1 , 'font-family' : style2 , 'display' : style3 }">n'oublier pas d'enregistrer vos modifications</p>
+
+   <div mat-dialog-action [align]="'end'">
+  <button style="margin: right 8px;" mat-raised-button color="warn" mat-dialog-close>Close</button>
+  <button style="margin: right 8px;" mat-raised-button color="primary" (click)="addproject()">{{actionbutton}}</button>
+  
+  </div>
+    </div>
+
+    
+

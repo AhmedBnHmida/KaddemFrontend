@@ -1,0 +1,30 @@
+.department-layout-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.department-title {
+  margin-bottom: 20px;
+  color: #3f51b5;
+  font-weight: 500;
+}
+
+.department-navigation {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.department-content {
+  margin-top: 20px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  padding: 20px;
+  min-height: 400px;
+}
+
+.active {
+  background-color: #283593;
+} 

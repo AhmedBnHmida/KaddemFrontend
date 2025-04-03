@@ -1,0 +1,15 @@
+.h1{
+    margin-left: 40px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.h2 {
+    margin-left: 50px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.ppp {
+   font-size: larger;
+    font-family: 'Times New Roman', Times, serif;
+    padding-left: 10px;
+}

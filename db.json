@@ -1,0 +1,30 @@
+{
+  "ProjectsList": [
+    {
+        "idContrat": 1,
+        "dateDebutContrat": "2023-11-01",
+        "dateFinContrat": "2023-11-03",
+        "specialite": "IA",
+        "archived": true,
+        "montantContrat": 100
+    },
+    {
+      "idContrat": 2,
+      "dateDebutContrat": "2023-11-10",
+      "dateFinContrat": "2023-11-30",
+      "specialite": "IA",
+      "archived": false,
+      "montantContrat": 200 
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

@@ -1,0 +1,23 @@
+<div class="department-layout-container">
+  <h1 class="department-title">Department Management</h1>
+  
+  <mat-tab-group>
+    <mat-tab label="Departments">
+      <nav class="department-navigation">
+        <a mat-raised-button color="primary" routerLink="/departments" routerLinkActive="active">
+          <mat-icon>view_list</mat-icon> Department List
+        </a>
+        <a mat-raised-button color="accent" routerLink="/departments/new" routerLinkActive="active">
+          <mat-icon>add</mat-icon> Add Department
+        </a>
+        <a mat-raised-button color="primary" routerLink="/departments/statistics" routerLinkActive="active">
+          <mat-icon>analytics</mat-icon> Statistics
+        </a>
+      </nav>
+    </mat-tab>
+  </mat-tab-group>
+  
+  <div class="department-content">
+    <router-outlet></router-outlet>
+  </div>
+</div> 

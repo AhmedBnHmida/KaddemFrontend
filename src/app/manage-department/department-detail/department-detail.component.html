@@ -1,0 +1,104 @@
+<div class="department-detail-container">
+  <div class="detail-header">
+    <a mat-icon-button color="primary" (click)="goBack()" matTooltip="Go Back">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <h2>Department Details</h2>
+  </div>
+
+  <div *ngIf="isLoading" class="spinner-container">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <p class="error-message">{{ error }}</p>
+    <button mat-raised-button color="primary" (click)="loadDepartment()">Retry</button>
+  </div>
+
+  <div *ngIf="!isLoading && !error && department" class="department-detail-content">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ department.nomDepartement }}</mat-card-title>
+        <mat-card-subtitle>
+          <mat-chip-list>
+            <mat-chip [color]="department.active ? 'primary' : 'warn'" selected>
+              {{ department.active ? 'Active' : 'Inactive' }}
+            </mat-chip>
+          </mat-chip-list>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="detail-row">
+          <span class="detail-label">ID:</span>
+          <span class="detail-value">{{ department.idDepartement }}</span>
+        </div>
+        
+        <div class="detail-row">
+          <span class="detail-label">Name:</span>
+          <span class="detail-value">{{ department.nomDepartement }}</span>
+        </div>
+        
+        <div class="detail-row">
+          <span class="detail-label">Capacity:</span>
+          <span class="detail-value">{{ department.capacity }}</span>
+        </div>
+        
+        <div class="detail-row">
+          <span class="detail-label">Status:</span>
+          <span class="detail-value">{{ department.active ? 'Active' : 'Inactive' }}</span>
+        </div>
+
+        <div class="detail-row" *ngIf="efficiency !== null">
+          <span class="detail-label">Efficiency:</span>
+          <span class="detail-value">{{ efficiency }}%</span>
+        </div>
+
+        <div class="section-title">
+          <h3>Students</h3>
+          <span class="badge" *ngIf="department.etudiants">{{ department.etudiants.length }}</span>
+        </div>
+        
+        <div *ngIf="!department.etudiants || department.etudiants.length === 0" class="empty-message">
+          No students assigned to this department
+        </div>
+        
+        <mat-list *ngIf="department.etudiants && department.etudiants.length > 0">
+          <mat-list-item *ngFor="let student of department.etudiants">
+            {{ student.prenomE }} {{ student.nomE }} - {{ student.option }}
+          </mat-list-item>
+        </mat-list>
+
+        <div class="section-title">
+          <h3>Professors</h3>
+          <span class="badge" *ngIf="professors">{{ professors.length }}</span>
+        </div>
+        
+        <div *ngIf="!professors || professors.length === 0" class="empty-message">
+          No professors assigned to this department
+        </div>
+        
+        <mat-list *ngIf="professors && professors.length > 0">
+          <mat-list-item *ngFor="let professor of professors">
+            {{ professor.name }} - {{ professor.specialty }} ({{ professor.experienceYears }} years)
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="editDepartment()">
+          <mat-icon>edit</mat-icon> Edit
+        </button>
+        <button mat-raised-button color="primary" (click)="viewStatistics()">
+          <mat-icon>insert_chart</mat-icon> Statistics
+        </button>
+        <button mat-raised-button color="accent" (click)="assignProfessor()">
+          <mat-icon>person_add</mat-icon> Assign Professor
+        </button>
+        <button mat-raised-button color="accent" (click)="assignCourse()">
+          <mat-icon>library_books</mat-icon> Assign Course
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div> 

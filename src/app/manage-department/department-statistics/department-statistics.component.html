@@ -1,0 +1,138 @@
+<div class="statistics-container">
+  <div class="statistics-header">
+    <a mat-icon-button color="primary" (click)="goBack()" matTooltip="Go Back">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <h2>{{ isSpecificDepartment ? 'Department Statistics: ' + departmentName : 'Department Statistics Overview' }}</h2>
+  </div>
+
+  <div *ngIf="isLoading" class="spinner-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p *ngIf="loadingMessage" class="loading-message">{{ loadingMessage }}</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <p class="error-message">{{ error }}</p>
+    <button mat-raised-button color="primary" (click)="isSpecificDepartment ? loadDepartmentStatistics() : loadStudentsPerDepartment()">Retry</button>
+  </div>
+
+  <!-- Specific Department Statistics -->
+  <div *ngIf="!isLoading && !error && isSpecificDepartment && statistics" class="statistics-content">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ departmentName }} Statistics</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-icon">
+              <mat-icon>people</mat-icon>
+            </div>
+            <div class="stat-content">
+              <span class="stat-value">{{ statistics.studentCount }}</span>
+              <span class="stat-label">Students</span>
+            </div>
+          </div>
+
+          <div class="stat-item">
+            <div class="stat-icon">
+              <mat-icon>school</mat-icon>
+            </div>
+            <div class="stat-content">
+              <span class="stat-value">{{ statistics.professorCount }}</span>
+              <span class="stat-label">Professors</span>
+            </div>
+          </div>
+
+          <div class="stat-item">
+            <div class="stat-icon">
+              <mat-icon>library_books</mat-icon>
+            </div>
+            <div class="stat-content">
+              <span class="stat-value">{{ statistics.courseCount }}</span>
+              <span class="stat-label">Courses</span>
+            </div>
+          </div>
+
+          <div class="stat-item">
+            <div class="stat-icon">
+              <mat-icon>grade</mat-icon>
+            </div>
+            <div class="stat-content">
+              <span class="stat-value">{{ statistics.averageGrade | number:'1.1-1' }}</span>
+              <span class="stat-label">Avg. Grade</span>
+            </div>
+          </div>
+
+          <div class="stat-item">
+            <div class="stat-icon">
+              <mat-icon>trending_up</mat-icon>
+            </div>
+            <div class="stat-content">
+              <span class="stat-value">{{ (statistics.utilizationRate * 100) | number:'1.0-0' }}%</span>
+              <span class="stat-label">Utilization</span>
+            </div>
+          </div>
+
+          <div class="stat-item">
+            <div class="stat-icon">
+              <mat-icon>wc</mat-icon>
+            </div>
+            <div class="stat-content">
+              <span class="stat-value">{{ statistics.maleToFemaleRatio | number:'1.1-1' }}</span>
+              <span class="stat-label">M:F Ratio</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Statistics -->
+        <div class="additional-stats" *ngIf="statistics && Object.keys(statistics).length > 6">
+          <h3>Additional Metrics</h3>
+          <div class="stat-row" *ngFor="let key of getAdditionalKeys()">
+            <span class="stat-key">{{ formatStatKey(key) }}</span>
+            <span class="stat-value-additional">{{ formatStatValue(statistics[key]) }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Students Per Department Overview -->
+  <div *ngIf="!isLoading && !error && !isSpecificDepartment && studentsPerDepartment" class="statistics-content">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Students Per Department</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div *ngIf="Object.keys(studentsPerDepartment).length === 0" class="empty-message">
+          No data available
+        </div>
+
+        <div *ngIf="Object.keys(studentsPerDepartment).length > 0" class="department-student-counts">
+          <div class="department-student-item" *ngFor="let dept of getKeys(studentsPerDepartment)" (click)="viewDepartmentDetail(dept)">
+            <div class="department-name">
+              {{ dept }} 
+              <mat-icon class="view-details-icon">visibility</mat-icon>
+            </div>
+            <div class="student-bar-container">
+              <div class="student-bar" [style.width.%]="getPercentage(studentsPerDepartment[dept])"></div>
+              <span class="student-count">{{ studentsPerDepartment[dept] }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<ng-template #additionalStatsTemplate>
+  <h2>Additional Department Statistics</h2>
+  <div class="additional-stats-content">
+    <div *ngFor="let key of getAdditionalKeys()" class="additional-stat-item">
+      <span class="additional-stat-label">{{ formatStatKey(key) }}</span>
+      <span class="additional-stat-value">{{ statistics && formatStatValue(statistics[key]) }}</span>
+    </div>
+  </div>
+</ng-template> 
