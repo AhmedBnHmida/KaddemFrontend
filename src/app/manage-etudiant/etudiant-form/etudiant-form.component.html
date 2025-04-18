@@ -1,0 +1,51 @@
+<div class="etudiant-form-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ isEditMode ? 'Edit Etudiant' : 'Add Etudiant' }}</mat-card-title>
+      </mat-card-header>
+  
+      <div *ngIf="isLoading" class="spinner-container">
+        <mat-spinner diameter="50"></mat-spinner>
+      </div>
+  
+      <div *ngIf="error" class="error-container">
+        <p class="error-message">{{ error }}</p>
+      </div>
+  
+      <mat-card-content *ngIf="!isLoading">
+        <form [formGroup]="etudiantForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="prenomE" placeholder="Enter first name">
+            <mat-error *ngIf="etudiantForm.get('prenomE')?.hasError('required')">Required</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="nomE" placeholder="Enter last name">
+            <mat-error *ngIf="etudiantForm.get('nomE')?.hasError('required')">Required</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Option</mat-label>
+            <mat-select formControlName="op">
+              <mat-option value="GAMIX">GAMIX</mat-option>
+              <mat-option value="SE">SE</mat-option>
+              <mat-option value="SIM">SIM</mat-option>
+              <mat-option value="NIDS">NIDS</mat-option>
+            </mat-select>
+            <mat-error *ngIf="etudiantForm.get('op')?.hasError('required')">Option is required</mat-error>
+          </mat-form-field>
+          
+  
+          <div class="form-actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="etudiantForm.invalid">
+              {{ isEditMode ? 'Update' : 'Create' }}
+            </button>
+            <button mat-button type="button" (click)="cancel()">Cancel</button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

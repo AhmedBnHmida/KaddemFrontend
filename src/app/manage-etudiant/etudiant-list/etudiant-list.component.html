@@ -1,0 +1,76 @@
+<div class="etudiant-list-container">
+    <div class="etudiant-list-header">
+      <h2>Etudiant List</h2>
+    </div>
+  
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search etudiants..." #input>
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  
+    <div class="spinner-container" *ngIf="isLoading">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  
+    <div class="error-container" *ngIf="error">
+      <p class="error-message">{{ error }}</p>
+      <button mat-raised-button color="primary" (click)="loadEtudiants()">Retry</button>
+    </div>
+  
+    <div class="table-container" *ngIf="!isLoading && !error">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  
+        <!-- ID Column -->
+        <ng-container matColumnDef="idEtudiant">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+          <td mat-cell *matCellDef="let etu">{{ etu.idEtudiant }}</td>
+        </ng-container>
+  
+        <!-- First Name -->
+        <ng-container matColumnDef="prenomE">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+          <td mat-cell *matCellDef="let etu">{{ etu.prenomE }}</td>
+        </ng-container>
+  
+        <!-- Last Name -->
+        <ng-container matColumnDef="nomE">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+          <td mat-cell *matCellDef="let etu">{{ etu.nomE }}</td>
+        </ng-container>
+  
+        <!-- Option -->
+        <ng-container matColumnDef="op">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Option</th>
+            <td mat-cell *matCellDef="let etu">{{ etu.op }}</td>
+        </ng-container>
+          
+  
+        <!-- Actions -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let etu">
+            <button mat-icon-button color="primary" (click)="viewEtudiant(etu.idEtudiant!)" matTooltip="Details">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" (click)="editEtudiant(etu.idEtudiant!)" matTooltip="Edit">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteEtudiant(etu.idEtudiant!)" matTooltip="Delete">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="5">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </table>
+  
+      <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+  

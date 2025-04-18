@@ -1,0 +1,51 @@
+<div class="etudiant-detail-container">
+    <div class="detail-header">
+      <a mat-icon-button color="primary" (click)="goBack()" matTooltip="Go Back">
+        <mat-icon>arrow_back</mat-icon>
+      </a>
+      <h2>Etudiant Details</h2>
+    </div>
+  
+    <div *ngIf="isLoading" class="spinner-container">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  
+    <div *ngIf="error" class="error-container">
+      <p>{{ error }}</p>
+      <button mat-raised-button color="primary" (click)="loadEtudiant()">Retry</button>
+    </div>
+  
+    <div *ngIf="!isLoading && !error && etudiant" class="etudiant-detail-card">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ etudiant.prenomE }} {{ etudiant.nomE }}</mat-card-title>
+          <mat-card-subtitle>Option: {{ etudiant.op }}</mat-card-subtitle>
+        </mat-card-header>
+  
+        <mat-card-content>
+          <div class="detail-row"><strong>ID:</strong> {{ etudiant.idEtudiant }}</div>
+          <div class="detail-row"><strong>Nom:</strong> {{ etudiant.nomE }}</div>
+          <div class="detail-row"><strong>Prénom:</strong> {{ etudiant.prenomE }}</div>
+          <div class="detail-row"><strong>Option:</strong> {{ etudiant.op }}</div>
+  
+          <div *ngIf="etudiant.departement">
+            <div class="detail-row"><strong>Département:</strong> {{ etudiant.departement.nomDepartement }}</div>
+          </div>
+  
+          <div *ngIf="etudiant.equipes?.length">
+            <h4>Equipes:</h4>
+            <ul>
+              <li *ngFor="let eq of etudiant.equipes">{{ eq.nomEquipe }}</li>
+            </ul>
+          </div>
+        </mat-card-content>
+  
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="editEtudiant()">
+            <mat-icon>edit</mat-icon> Edit
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  

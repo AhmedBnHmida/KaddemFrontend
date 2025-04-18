@@ -1,0 +1,20 @@
+<div class="etudiant-layout-container">
+  <h1 class="etudiant-title">Etudiant Management</h1>
+
+  <mat-tab-group>
+    <mat-tab label="Etudiants">
+      <nav class="etudiant-navigation">
+        <a mat-raised-button color="primary" routerLink="/etudiants" routerLinkActive="active">
+          <mat-icon>view_list</mat-icon> Etudiant List
+        </a>
+        <a mat-raised-button color="accent" routerLink="/etudiants/new" routerLinkActive="active">
+          <mat-icon>add</mat-icon> Add Etudiant
+        </a>
+      </nav>
+    </mat-tab>
+  </mat-tab-group>
+
+  <div class="etudiant-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

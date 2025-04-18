@@ -12,6 +12,7 @@ const routes: Routes = [
     {path: 'gestion' ,component:ProcomComponent }
   ] },
   { path: '', redirectTo: '/departments', pathMatch: 'full' },
+  { path: 'etudiants', loadChildren: () => import('./manage-etudiant/etudiant.module').then(m => m.EtudiantModule) },
   // Department module routes are loaded in the DepartmentModule
 ];
 
